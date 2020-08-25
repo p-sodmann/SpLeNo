@@ -7,12 +7,12 @@ If you have a lot of domain specific vocabulary like in legal or biomedical text
 I wrote this small script to accomplish this goal. Instead of writing huge dictionaries with mapping all inflections to a lemma, this lets you define a lemma and add all inflections to it.
 
 ### Example:
-
-
+Lets say, you want to add some inflections to the word "Snek", lets say the plural "Sneks" and the misspelled version "Snake".
+```
 Lemma Snek  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flex Sneks  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spel Snake  
-
+```
 ### Installation:
 clone this repository and install it locally:
 
