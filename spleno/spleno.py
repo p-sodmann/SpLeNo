@@ -15,67 +15,62 @@
         Spel Wort
 """
 
+def load(nlp, path):
+    last_lemma = None
+    last_type = None
+    
+    lemma_table = nlp.vocab.lookups.get_table("lemma_lookup")
 
-class Spleno():
-    def __init__(self):
-        pass
+    # load data from dictionary
+    with open(path, "r", encoding="utf-8") as file:
+        l = file.readlines()
 
-    def load(self, nlp, path):
-        last_lemma = None
-        last_type = None
-        
-        lemma_table = nlp.vocab.lookups.get_table("lemma_lookup")
+    l = [l.strip() for l in l]
+    
 
-        # load data from dictionary
-        with open(path, "r", encoding="utf-8") as file:
-            l = file.readlines()
+    # go lne by line over the file we just loaded
+    for line_index, line in enumerate(l):
+        # check if empty:
+        if line:
 
-        l = [l.strip() for l in l]
-        
+            # ignore comments
+            if line[0] == "#":
+                continue
+            
+            # split by spaces, what could go wrong ;D
+            elements = line.split(" ")
 
-        # go lne by line over the file we just loaded
-        for line_index, line in enumerate(l):
-            # check if empty:
-            if line:
+            # check if we actually have content:
+            if elements:
 
-                # ignore comments
-                if line[0] == "#":
-                    continue
-                
-                # split by spaces, what could go wrong ;D
-                elements = line.split(" ")
+                # this is our new base word
+                if line.startswith("Lemma"):
+                    last_lemma = elements[-1]
 
-                # check if we actually have content:
-                if elements:
-
-                    # this is our new base word
-                    if line.startswith("Lemma"):
-                        last_lemma = elements[-1]
-
-                        if len(elements) == 2:
-                            last_type = None
-                        elif len(elements) == 3:
-                            last_type = elements[1]
-                        else:
-                            raise Exception('Error in Parsing Lemma File', f'There is an issue in reading file {path} line: {line_index} is malformed.')
-                
-                    
+                    if len(elements) == 2:
+                        last_type = None
+                    elif len(elements) == 3:
+                        last_type = elements[1]
                     else:
-                        # you forgot to set a lemma first
-                        if last_lemma is None:                    
-                            print(f"There is an Error in file {path}, you tried to add a new f{elements[0]} but didn't set a base word before. \n\nLine: {line_index}")
+                        raise Exception('Error in Parsing Lemma File', f'There is an issue in reading file {path} line: {line_index} is malformed.')
+            
+                
+                else:
+                    # you forgot to set a lemma first
+                    if last_lemma is None:                    
+                        print(f"There is an Error in file {path}, you tried to add a new f{elements[0]} but didn't set a base word before. \n\nLine: {line_index}")
+                    
+                    # we found a new entry for the base word, lets append this to our lookup table 
+                    else:
+                        # in case of Lemma Words
+                        if last_type is None:
+                            flexion = elements[-1]
+                            lemma_table[flexion] = last_lemma   
                         
-                        # we found a new entry for the base word, lets append this to our lookup table 
-                        else:
-                            # in case of Lemma Words
-                            if last_type is None:
-                                flexion = elements[-1]
-                                lemma_table[flexion] = last_lemma   
-                            
-                            # This list needs to be populated
-                            elif last_type in ["Noun"]:
-                                flexion = elements[-1]
-                                lemma_table[last_type.lower()][flexion] = last_lemma   
+                        # This list needs to be populated
+                        elif last_type in ["Noun"]:
+                            flexion = elements[-1]
+                            lemma_table[last_type.lower()][flexion] = last_lemma   
 
-        return nlp
+    return nlp
     
