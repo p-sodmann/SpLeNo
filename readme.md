@@ -1,5 +1,5 @@
 # SpLeNo
-## building lemmatizer dictionaries in a human friendly way
+## Building lemmatizer dictionaries in a human friendly way
 
 Create Lemmatizer Dictionaries fast in a human readable way.
 If you have a lot of domain specific vocabulary like in legal or biomedical text, it can be tricky to add a lot of new lemmas without losing oversight.
