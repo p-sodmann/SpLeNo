@@ -31,7 +31,7 @@ import spleno
 nlp = spacy.load("de_core_news_sm")
 nlp = spleno.load(nlp, "dictionaries/example.dic")
 
-doc = nlp("Sneak")
+doc = nlp("Snake")
 
 assert doc[0].lemma_ == "Snek"
 ```
