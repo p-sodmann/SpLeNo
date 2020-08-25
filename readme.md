@@ -6,14 +6,14 @@ If you have a lot of domain specific vocabulary like in legal or biomedical text
 
 I wrote this small script to accomplish this goal. Instead of writing huge dictionaries with mapping all inflections to a lemma, this lets you define a lemma and add all inflections to it.
 
-###Example:
+### Example:
 
 
 Lemma Snek  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flex Sneks  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spel Snake  
 
-###Installation:
+### Installation:
 clone this repository and install it locally:
 
 ```console
