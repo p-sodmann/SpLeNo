@@ -36,4 +36,14 @@ doc = nlp("Snake")
 assert doc[0].lemma_ == "Snek"
 ```
 
-have fun.
+### How does it work?
+SpLeNo will parse the fill you specify and simply add new entries to the lemma lookups.  
+This means, you need to either run the script each time you load your spacy model, or you save a copy of your model with loaded lemmas.
+
+You can of course load multiple dictionary files in a row.
+
+```
+nlp = spleno.load(nlp, "dictionaries/example_1.dic")
+nlp = spleno.load(nlp, "dictionaries/example_2.dic")
+etc.
+```
